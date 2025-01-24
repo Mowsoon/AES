@@ -13,6 +13,7 @@ int main() {
     if (listen(socket_fd,PENDING_QUEUE_SIZE) == -1) {
         handle_error("listen");
     }
+    puts("Waiting for a client connection...");
 
     #ifdef _WIN32
         WSACleanup();
