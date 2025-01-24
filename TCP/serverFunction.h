@@ -19,5 +19,6 @@ int init_socket(void);
 struct sockaddr_in configure_server_socket(void);
 int bind_socket(int socket_fd, struct sockaddr_in serverSocket, int socketLength);
 void handle_error(const char *function_name);
+int accept_socket(int socket_fd, struct sockaddr_in serverSocket, int socketLength);
 
 #endif

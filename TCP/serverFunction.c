@@ -42,4 +42,10 @@ int bind_socket(int socket_fd, struct sockaddr_in serverSocket, int socketLength
     return bind_fd;
 }
 
-
+int accept_socket(int socket_fd, struct sockaddr_in serverSocket, int socketLength) {
+    int accept_fd = accept(socket_fd, (struct sockaddr*)&serverSocket, &socketLength);
+    if (accept_fd == -1) {
+        handle_error("accept");
+    }
+    return accept_fd;
+}
