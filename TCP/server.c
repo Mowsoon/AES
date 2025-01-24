@@ -32,12 +32,21 @@ int init_socket(void) {
 }
 
 struct sockaddr_in configure_server_socket() {
-        struct sockaddr_in serverSocket;
-        serverSocket.sin_family = AF_INET;
-        serverSocket.sin_port = LISTEN_PORT;
-        serverSocket.sin_addr.s_addr = INADDR_ANY;
+    struct sockaddr_in serverSocket;
+    serverSocket.sin_family         = AF_INET;
+    serverSocket.sin_port           = LISTEN_PORT;
+    serverSocket.sin_addr.s_addr    = INADDR_ANY;
 
-        return serverSocket;
+    return serverSocket;
+}
+
+int bind_socket(int socket_fd, struct sockaddr_in serverSocket, int socketLength) {
+        int bind_fd = bind(socket_fd, (struct sockaddr*)&serverSocket, socketLength);
+        if (bind_fd == -1) {
+            fprintf(stderr, "bind() failed with error: %d\n", WSAGetLastError());
+            exit(1);
+        }
+        return bind_fd;
     }
 
 int main() {
@@ -45,8 +54,10 @@ int main() {
         init_winsock();
     #endif
 
-    int socket_fd = init_socket();
-    struct sockaddr_in serverSocket = configure_server_socket();
+    int socket_fd                       = init_socket();
+    struct sockaddr_in serverSocket     = configure_server_socket();
+    const int socketLength              = sizeof(serverSocket);
+    int bind_fd                         = bind_socket(socket_fd, serverSocket, socketLength);
 
     #ifdef _WIN32
         WSACleanup();
