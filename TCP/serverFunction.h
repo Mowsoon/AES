@@ -1,6 +1,8 @@
 #ifndef SERVERFUNCTION_H
 #define SERVERFUNCTION_H
+
 #define LISTEN_PORT 8080
+#define PENDING_QUEUE_SIZE 1
 
 #ifdef _WIN32 // Windows
     #include <winsock2.h>

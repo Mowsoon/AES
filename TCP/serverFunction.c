@@ -4,7 +4,7 @@ void init_winsock(void) {
     WSADATA wsaData;
     if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {
         fprintf(stderr, "WSAStartup failed with error: %d\n", WSAGetLastError());
-        exit(1);
+        exit(EXIT_FAILURE);
     }
 }
 
@@ -16,7 +16,7 @@ int init_socket(void) {
         #else
             perror("socket");
         #endif
-        exit(1);
+        exit(EXIT_FAILURE);
     }
     return socket_fd;
 }
@@ -38,7 +38,7 @@ int bind_socket(int socket_fd, struct sockaddr_in serverSocket, int socketLength
         #else
             perror("bind");
         #endif
-        exit(1);
+        exit(EXIT_FAILURE);
     }
     return bind_fd;
 }
