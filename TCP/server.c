@@ -22,5 +22,9 @@ int main() {
         init_winsock();
     #endif
 
+
+    #ifdef _WIN32
+        WSACleanup();
+    #endif
     return 0;
 }
