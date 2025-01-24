@@ -5,4 +5,5 @@
 
 int main() {
     printf("Hello server\n");
+    return 0;
 }
