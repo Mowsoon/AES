@@ -11,12 +11,7 @@ int main() {
     int bind_fd                         = bind_socket(socket_fd, serverSocket, socketLength);
 
     if (listen(socket_fd,PENDING_QUEUE_SIZE) == -1) {
-        #ifdef _WIN32
-            fprintf(stderr, "Error while listening on socket: %d\n", WSAGetLastError());
-        #else
-            perror("Error while listening on socket");
-        #endif
-        exit(EXIT_FAILURE);
+        handle_error("listen");
     }
 
     #ifdef _WIN32

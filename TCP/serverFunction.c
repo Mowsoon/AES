@@ -1,5 +1,14 @@
 #include "serverFunction.h"
 
+void handle_error(const char *function_name) {
+    #ifdef _WIN32
+        fprintf(stderr, "%s failed with error: %d\n", function_name, WSAGetLastError());
+    #else
+        perror(function_name);
+    #endif
+    exit(EXIT_FAILURE);
+}
+
 void init_winsock(void) {
     WSADATA wsaData;
     if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {
@@ -11,12 +20,7 @@ void init_winsock(void) {
 int init_socket(void) {
     int socket_fd = socket(AF_INET, SOCK_STREAM, 0);
     if (socket_fd == -1) {
-        #ifdef _WIN32
-            fprintf(stderr, "socket() failed with error: %d\n", WSAGetLastError());
-        #else
-            perror("socket");
-        #endif
-        exit(EXIT_FAILURE);
+        handle_error("socket");
     }
     return socket_fd;
 }
@@ -33,12 +37,9 @@ struct sockaddr_in configure_server_socket(void) {
 int bind_socket(int socket_fd, struct sockaddr_in serverSocket, int socketLength) {
     int bind_fd = bind(socket_fd, (struct sockaddr*)&serverSocket, socketLength);
     if (bind_fd == -1) {
-        #ifdef _WIN32
-            fprintf(stderr, "bind() failed with error: %d\n", WSAGetLastError());
-        #else
-            perror("bind");
-        #endif
-        exit(EXIT_FAILURE);
+        handle_error("bind_fd");
     }
     return bind_fd;
 }
+
+
