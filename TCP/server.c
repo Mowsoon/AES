@@ -16,7 +16,7 @@
 #endif
 
 
-
+#define LISTEN_PORT 8080;
 
 int init_socket(void) {
     int socket_fd = socket(AF_INET, SOCK_STREAM, 0);
@@ -31,12 +31,22 @@ int init_socket(void) {
     return socket_fd;
 }
 
+struct sockaddr_in configure_server_socket() {
+        struct sockaddr_in serverSocket;
+        serverSocket.sin_family = AF_INET;
+        serverSocket.sin_port = LISTEN_PORT;
+        serverSocket.sin_addr.s_addr = INADDR_ANY;
+
+        return serverSocket;
+    }
+
 int main() {
     #ifdef _WIN32
         init_winsock();
     #endif
 
     int socket_fd = init_socket();
+    struct sockaddr_in serverSocket = configure_server_socket();
 
     #ifdef _WIN32
         WSACleanup();
