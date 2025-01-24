@@ -3,19 +3,20 @@
 #ifdef _WIN32 // Windows
     #include <winsock2.h>
     #include <ws2tcpip.h>
+    void init_winsock(void) {
+        WSADATA wsaData;
+        if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {
+            fprintf(stderr, "WSAStartup failed with error: %d\n", WSAGetLastError());
+            exit(1);
+        }
+    }
 #else //Linux
     #include <netinet/in.h>
     #include <sys/socket.h>
 #endif
 
 
-void init_winsock(void) {
-    WSADATA wsaData;
-    if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {
-        fprintf(stderr, "WSAStartup failed with error: %d\n", WSAGetLastError());
-        exit(1);
-    }
-}
+
 
 int init_socket(void) {
     int socket_fd = socket(AF_INET, SOCK_STREAM, 0);
