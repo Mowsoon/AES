@@ -25,7 +25,7 @@ int init_socket(void) {
         #else
             perror("socket");
         #endif
-            exit(1);
+        exit(1);
     }
     return socket_fd;
 }
@@ -39,6 +39,9 @@ int main() {
 
     #ifdef _WIN32
         WSACleanup();
+        closesocket(socket_fd);
+    #else
+        close(socket_fd);
     #endif
     return 0;
 }
