@@ -16,3 +16,22 @@ void init_winsock(void) {
         exit(EXIT_FAILURE);
     }
 }
+
+int init_socket(void) {
+    int socket_fd = socket(AF_INET, SOCK_STREAM, 0);
+    if (socket_fd == -1) {
+        handle_error("socket");
+    }
+    return socket_fd;
+}
+
+struct sockaddr_in configure_client_socket(void) {
+    struct sockaddr_in client_socket;
+    client_socket.sin_family       = AF_INET;
+    client_socket.sin_port         = LISTEN_PORT;
+    int inetReturnCode              = inet_pton(AF_INET, CONNECTION_HOST, &client_socket.sin_addr);
+    if (inetReturnCode == -1) {
+        handle_error("inet_pton");
+    }
+    return client_socket;
+}
