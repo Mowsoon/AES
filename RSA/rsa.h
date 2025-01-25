@@ -7,5 +7,7 @@
 #include <time.h>
 #include <string.h>
 
+#define RAND_SIZE 1024
+#define E 65537
 
 #endif //RSA_H
