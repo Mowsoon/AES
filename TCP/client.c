@@ -1,6 +1,13 @@
 #include "clientFunction.h"
 
 int main() {
-    printf("Hello client\n");
+    #ifdef _WIN32
+        init_winsock();
+    #endif
+
+
+    #ifdef _WIN32
+        WSACleanup();
+    #endif
     return 0;
 }
