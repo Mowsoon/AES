@@ -1,7 +1,5 @@
 #include "serverFunction.h"
 
-
-
 int main() {
     #ifdef _WIN32
         init_winsock();
