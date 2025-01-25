@@ -5,13 +5,13 @@ int main() {
         init_winsock();
     #endif
 
-    int socket_fd                       = init_socket();
-    struct sockaddr_in client_socket    = configure_client_socket();
-    const int socketLength              = sizeof(client_socket);
-    connect_client_socket(socket_fd, client_socket, socketLength);
+    int socketFd                       = init_socket();
+    struct sockaddr_in clientSocket    = configure_client_socket();
+    const int socketLength              = sizeof(clientSocket);
+    connect_client_socket(socketFd, clientSocket, socketLength);
 
     #ifdef _WIN32
-        closesocket(socket_fd);
+        closesocket(socketFd);
         WSACleanup();
     #else
         close(socket_fd);

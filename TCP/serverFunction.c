@@ -1,8 +1,8 @@
 #include "serverFunction.h"
 
-void handle_error(const char *function_name) {
+void handle_error(const char *functionName) {
     #ifdef _WIN32
-        fprintf(stderr, "%s failed with error: %d\n", function_name, WSAGetLastError());
+        fprintf(stderr, "%s failed with error: %d\n", functionName, WSAGetLastError());
     #else
         perror(function_name);
     #endif
@@ -18,11 +18,11 @@ void init_winsock(void) {
 }
 
 int init_socket(void) {
-    int socket_fd = socket(AF_INET, SOCK_STREAM, 0);
-    if (socket_fd == -1) {
+    int socketFd = socket(AF_INET, SOCK_STREAM, 0);
+    if (socketFd == -1) {
         handle_error("socket");
     }
-    return socket_fd;
+    return socketFd;
 }
 
 struct sockaddr_in configure_server_socket(void) {
@@ -34,19 +34,18 @@ struct sockaddr_in configure_server_socket(void) {
     return serverSocket;
 }
 
-void bind_socket(int socket_fd, struct sockaddr_in serverSocket, int socketLength) {
-    int bind_fd = bind(socket_fd, (struct sockaddr*)&serverSocket, socketLength);
-    if (bind_fd == -1) {
+void bind_socket(int socketFd, struct sockaddr_in serverSocket, int socketLength) {
+    if (bind(socketFd, (struct sockaddr*)&serverSocket, socketLength) == -1) {
         handle_error("bind_fd");
     }
 }
 
-int accept_socket(int socket_fd, struct sockaddr_in serverSocket, int socketLength) {
-    int accept_fd = accept(socket_fd, (struct sockaddr*)&serverSocket, &socketLength);
-    if (accept_fd == -1) {
+int accept_socket(int socketFd, struct sockaddr_in serverSocket, int socketLength) {
+    int acceptFd = accept(socketFd, (struct sockaddr*)&serverSocket, &socketLength);
+    if (acceptFd == -1) {
         handle_error("accept");
     }
-    return accept_fd;
+    return acceptFd;
 }
 
 int receiv_bytes(int connectedSocket, char buffer[1024]) {

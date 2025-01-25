@@ -5,18 +5,18 @@ int main() {
         init_winsock();
     #endif
 
-    int socket_fd                       = init_socket();
+    int socketFd                       = init_socket();
     struct sockaddr_in serverSocket     = configure_server_socket();
     const int socketLength              = sizeof(serverSocket);
-    bind_socket(socket_fd, serverSocket, socketLength);
+    bind_socket(socketFd, serverSocket, socketLength);
 
-    if (listen(socket_fd,PENDING_QUEUE_SIZE) == -1) {
+    if (listen(socketFd,PENDING_QUEUE_SIZE) == -1) {
         handle_error("listen");
     }
 
     puts("Waiting for a client connection...");
 
-    int connectedSocket         = accept_socket(socket_fd, serverSocket, socketLength);
+    int connectedSocket         = accept_socket(socketFd, serverSocket, socketLength);
     char buffer[BUFFER_SIZE]    = {0};
     int receivedBytes           = receiv_bytes(connectedSocket, buffer);
 
@@ -28,7 +28,7 @@ int main() {
 
     #ifdef _WIN32
         closesocket(connectedSocket);
-        closesocket(socket_fd);
+        closesocket(socketFd);
         WSACleanup();
     #else
         close(connectedSocket);

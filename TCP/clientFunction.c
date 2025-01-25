@@ -1,8 +1,8 @@
 #include "clientFunction.h"
 
-void handle_error(const char *function_name) {
+void handle_error(const char *functionName) {
     #ifdef _WIN32
-        fprintf(stderr, "%s failed with error: %d\n", function_name, WSAGetLastError());
+        fprintf(stderr, "%s failed with error: %d\n", functionName, WSAGetLastError());
     #else
         perror(function_name);
     #endif
@@ -27,8 +27,8 @@ int init_socket(void) {
 
 struct sockaddr_in configure_client_socket(void) {
     struct sockaddr_in client_socket;
-    client_socket.sin_family       = AF_INET;
-    client_socket.sin_port         = LISTEN_PORT;
+    client_socket.sin_family        = AF_INET;
+    client_socket.sin_port          = LISTEN_PORT;
     int inetReturnCode              = inet_pton(AF_INET, CONNECTION_HOST, &client_socket.sin_addr);
     if (inetReturnCode == -1) {
         handle_error("inet_pton");
