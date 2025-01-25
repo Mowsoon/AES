@@ -3,6 +3,7 @@
 void init_random();
 void generate_random_prime();
 void find_pq();
+void calculate_n_phi();
 
 void generate_rsa_key(mpz_t e, mpz_t d, mpz_t n) {
     mpz_t p, q, phi;
@@ -10,6 +11,8 @@ void generate_rsa_key(mpz_t e, mpz_t d, mpz_t n) {
 
     init_random(state);
     find_pq(p, q, state);
+    calculate_n_phi(p, q, n, phi);
+
 }
 
 void init_random(gmp_randstate_t state) {
@@ -28,3 +31,12 @@ void find_pq(mpz_t p, mpz_t q, gmp_randstate_t state) {
     generate_random_prime(p, state);
     generate_random_prime(q, state);
 }
+
+void calculate_n_phi(mpz_t p, mpz_t q, mpz_t n, mpz_t phi) {
+    mpz_init(n); mpz_init(phi);
+    mpz_sub_ui(n, p, 1);
+    mpz_sub_ui(phi, q, 1);
+    mpz_mul(phi, n, phi);
+    mpz_mul(n, p, q);
+}
+
