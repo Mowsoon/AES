@@ -70,3 +70,17 @@ void string_to_mpz(char * str, mpz_t value) {
     }
 }
 
+void mpz_to_string(mpz_t value, char *str) {
+    size_t len = mpz_sizeinbase(value, SHIFT);
+    unsigned char *buffer = malloc(len);
+
+    mpz_export(buffer, &len, 1, 1, 0, 0, value);
+
+    for (size_t i = 0; i < len; i++) {
+        str[i] = (char)buffer[i];
+    }
+    str[len] = '\0';
+
+    free(buffer);
+}
+
