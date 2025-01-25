@@ -24,6 +24,10 @@ int main() {
 
     printf("Client has send : %s\n", buffer);
 
+    const char message[] = "Hello Client!";
+    int sentBytes = sent_bytes(connectedSocket, message);
+
+
     #ifdef _WIN32
         closesocket(connectedSocket);
         closesocket(socket_fd);

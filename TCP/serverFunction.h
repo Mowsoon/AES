@@ -22,5 +22,6 @@ int bind_socket(int socket_fd, struct sockaddr_in serverSocket, int socketLength
 void handle_error(const char *function_name);
 int accept_socket(int socket_fd, struct sockaddr_in serverSocket, int socketLength);
 int receiv_bytes(int connectedSocket, char buffer[1024]);
+int sent_bytes(int connectedSocket, char buffer[1024]);
 
 #endif

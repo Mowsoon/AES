@@ -34,7 +34,7 @@ struct sockaddr_in configure_server_socket(void) {
     return serverSocket;
 }
 
-int bind_socket(int socket_fd, struct sockaddr_in serverSocket, int socketLength) {
+void bind_socket(int socket_fd, struct sockaddr_in serverSocket, int socketLength) {
     int bind_fd = bind(socket_fd, (struct sockaddr*)&serverSocket, socketLength);
     if (bind_fd == -1) {
         handle_error("bind_fd");
@@ -56,4 +56,13 @@ int receiv_bytes(int connectedSocket, char buffer[1024]) {
         handle_error("recv");
     }
     return receivedBytes;
+}
+
+
+int sent_bytes(int connectedSocket, char buffer[1024]) {
+    int sentBytes = send(connectedSocket, buffer, BUFFER_SIZE, 0);
+    if (sentBytes == -1) {
+        handle_error("send");
+    }
+    return sentBytes;
 }
