@@ -9,6 +9,7 @@
 
 #define RAND_SIZE 1024
 #define E 65537
+#define SHIFT 256
 
 void generate_rsa_key(mpz_t e, mpz_t d, mpz_t n);
 char * crypt_rsa(char *message, mpz_t e, mpz_t n);

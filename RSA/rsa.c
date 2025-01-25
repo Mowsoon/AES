@@ -5,6 +5,8 @@ void generate_random_prime();
 void find_pq();
 void calculate_n_phi();
 void calculate_d();
+void string_to_mpz();
+void mpz_to_string();
 
 void generate_rsa_key(mpz_t e, mpz_t d, mpz_t n) {
     mpz_t p, q, phi;
@@ -55,6 +57,16 @@ void calculate_d(mpz_t e, mpz_t d, mpz_t phi)
     }
     else {
         exit(EXIT_FAILURE);
+    }
+}
+
+void string_to_mpz(char * str, mpz_t value) {
+    mpz_init(value);
+    mpz_set_ui(value, 0);
+    size_t len = strlen(str);
+    for (size_t i = 0; i < len; i++) {
+        mpz_mul_ui(value, value, SHIFT);
+        mpz_add_ui(value, value, (unsigned char)str[i]);
     }
 }
 
