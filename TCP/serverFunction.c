@@ -2,7 +2,7 @@
 
 void handle_error(const char *functionName) {
     #ifdef _WIN32
-        fprintf(stderr, "%s failed with error: %d\n", functionName, WSAGetLastError());
+        fprintf(stderr, "Server: %s failed with error: %d\n", functionName, WSAGetLastError());
     #else
         perror(function_name);
     #endif
