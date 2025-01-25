@@ -48,19 +48,15 @@ int accept_socket(int socketFd, struct sockaddr_in serverSocket, int socketLengt
     return acceptFd;
 }
 
-int receiv_bytes(int connectedSocket, char buffer[1024]) {
-    int receivedBytes = recv(connectedSocket, buffer, BUFFER_SIZE, 0);
-    if (receivedBytes == -1) {
+void receiv_bytes(int connectedSocket, char buffer[BUFFER_SIZE]) {
+    if (recv(connectedSocket, buffer, BUFFER_SIZE, 0); == -1) {
         handle_error("recv");
     }
-    return receivedBytes;
 }
 
 
-int sent_bytes(int connectedSocket, char buffer[1024]) {
-    int sentBytes = send(connectedSocket, buffer, BUFFER_SIZE, 0);
-    if (sentBytes == -1) {
+void sent_bytes(int connectedSocket, char buffer[BUFFER_SIZE]) {
+    if (send(connectedSocket, buffer, BUFFER_SIZE, 0); == -1) {
         handle_error("send");
     }
-    return sentBytes;
 }

@@ -18,12 +18,12 @@ int main() {
 
     int connectedSocket         = accept_socket(socketFd, serverSocket, socketLength);
     char buffer[BUFFER_SIZE]    = {0};
-    int receivedBytes           = receiv_bytes(connectedSocket, buffer);
 
+    receiv_bytes(connectedSocket, buffer);
     printf("Client has send : %s\n", buffer);
 
     const char message[] = "Hello Client!";
-    int sentBytes = sent_bytes(connectedSocket, message);
+    sent_bytes(connectedSocket, message);
 
 
     #ifdef _WIN32
