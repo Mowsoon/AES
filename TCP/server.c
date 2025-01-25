@@ -1,11 +1,12 @@
 #include "serverFunction.h"
+#include "../RSA/rsa.h"
 
 int main() {
     #ifdef _WIN32
         init_winsock();
     #endif
 
-    int socketFd                       = init_socket();
+    int socketFd                        = init_socket();
     struct sockaddr_in serverSocket     = configure_server_socket();
     const int socketLength              = sizeof(serverSocket);
     bind_socket(socketFd, serverSocket, socketLength);
