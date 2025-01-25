@@ -23,7 +23,7 @@ int main() {
     printf("Client has send : %s\n", buffer);
 
     const char message[] = "Hello Client!";
-    sent_bytes(connectedSocket, message);
+    send_bytes(connectedSocket, message);
 
 
     #ifdef _WIN32

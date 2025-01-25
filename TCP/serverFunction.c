@@ -49,14 +49,14 @@ int accept_socket(int socketFd, struct sockaddr_in serverSocket, int socketLengt
 }
 
 void receiv_bytes(int connectedSocket, char buffer[BUFFER_SIZE]) {
-    if (recv(connectedSocket, buffer, BUFFER_SIZE, 0); == -1) {
+    if (recv(connectedSocket, buffer, BUFFER_SIZE, 0) == -1) {
         handle_error("recv");
     }
 }
 
 
-void sent_bytes(int connectedSocket, char buffer[BUFFER_SIZE]) {
-    if (send(connectedSocket, buffer, BUFFER_SIZE, 0); == -1) {
+void send_bytes(int serverSocket, char buffer[BUFFER_SIZE]) {
+    if (send(serverSocket, buffer, BUFFER_SIZE, 0) == -1) {
         handle_error("send");
     }
 }

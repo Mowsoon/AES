@@ -41,3 +41,15 @@ void connect_client_socket(int socketFd, struct sockaddr_in clientSocket, int so
         handle_error("connect");
     }
 }
+
+void send_bytes(int serverSocket, char buffer[BUFFER_SIZE]) {
+    if (send(serverSocket, buffer, BUFFER_SIZE, 0) == -1) {
+        handle_error("send");
+    }
+}
+
+void receive_bytes(int serverSocket, char buffer[BUFFER_SIZE]) {
+    if (recv(serverSocket, buffer, BUFFER_SIZE, 0) == -1) {
+        handle_error("recv");
+    }
+}

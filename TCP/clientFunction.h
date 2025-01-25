@@ -3,6 +3,7 @@
 
 #define LISTEN_PORT 8080
 #define CONNECTION_HOST "127.0.0.1"
+#define BUFFER_SIZE 1024
 
 #ifdef _WIN32 // Windows
     #include <winsock2.h>
@@ -19,5 +20,7 @@ void init_winsock(void);
 int init_socket(void);
 struct sockaddr_in configure_client_socket(void);
 void connect_client_socket(int socketFd, struct sockaddr_in clientSocket, int socketLength);
+void send_bytes(int serverSocket, char buffer[BUFFER_SIZE]);
+void receive_bytes(int connectedSocket, char buffer[BUFFER_SIZE]);
 
 #endif
