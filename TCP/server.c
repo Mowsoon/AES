@@ -10,7 +10,7 @@ int main() {
     int socket_fd                       = init_socket();
     struct sockaddr_in serverSocket     = configure_server_socket();
     const int socketLength              = sizeof(serverSocket);
-    int bind_fd                         = bind_socket(socket_fd, serverSocket, socketLength);
+    bind_socket(socket_fd, serverSocket, socketLength);
 
     if (listen(socket_fd,PENDING_QUEUE_SIZE) == -1) {
         handle_error("listen");

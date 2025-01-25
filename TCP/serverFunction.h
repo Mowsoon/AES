@@ -18,7 +18,7 @@
 void init_winsock(void);
 int init_socket(void);
 struct sockaddr_in configure_server_socket(void);
-int bind_socket(int socket_fd, struct sockaddr_in serverSocket, int socketLength);
+void bind_socket(int socket_fd, struct sockaddr_in serverSocket, int socketLength);
 void handle_error(const char *function_name);
 int accept_socket(int socket_fd, struct sockaddr_in serverSocket, int socketLength);
 int receiv_bytes(int connectedSocket, char buffer[1024]);

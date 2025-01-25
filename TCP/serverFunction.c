@@ -26,7 +26,7 @@ int init_socket(void) {
 }
 
 struct sockaddr_in configure_server_socket(void) {
-    struct sockaddr_in serverSocket;
+    struct sockaddr_in serverSocket = {0};
     serverSocket.sin_family         = AF_INET;
     serverSocket.sin_port           = LISTEN_PORT;
     serverSocket.sin_addr.s_addr    = INADDR_ANY;
@@ -39,7 +39,6 @@ void bind_socket(int socket_fd, struct sockaddr_in serverSocket, int socketLengt
     if (bind_fd == -1) {
         handle_error("bind_fd");
     }
-    return bind_fd;
 }
 
 int accept_socket(int socket_fd, struct sockaddr_in serverSocket, int socketLength) {
