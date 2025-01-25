@@ -84,3 +84,24 @@ void mpz_to_string(mpz_t value, char *str) {
     free(buffer);
 }
 
+char * rsa(char *message, mpz_t key, mpz_t module) {
+    mpz_t M, C;
+    mpz_init(M); mpz_init(C);
+    string_to_mpz(message, M);
+    mpz_powm(C, M, key, module);
+
+    char *encrypted_message = malloc(RAND_SIZE * sizeof(char));
+
+    if (encrypted_message == NULL) {
+        fprintf(stderr, "Memory allocation error for encrypted message\n");
+        exit(EXIT_FAILURE);
+    }
+
+    mpz_to_string(C, encrypted_message);
+
+    mpz_clear(M);
+    mpz_clear(C);
+
+    return encrypted_message;
+}
+
