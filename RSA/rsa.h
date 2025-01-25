@@ -12,8 +12,8 @@
 #define SHIFT 256
 
 void generate_rsa_key(mpz_t e, mpz_t d, mpz_t n);
-char * crypt_rsa(char *message, mpz_t e, mpz_t n);
-char * decrypt_rsa(char *message, mpz_t d, mpz_t n);
+char * rsa(char *message, mpz_t key, mpz_t module);
+
 
 
 
