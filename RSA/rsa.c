@@ -60,52 +60,8 @@ void calculate_d(mpz_t e, mpz_t d, mpz_t phi)
     }
 }
 
-void string_to_mpz(char * str, mpz_t value) {
-    mpz_init(value);
-    mpz_set_ui(value, 0);
-    size_t len = strlen(str);
-    for (size_t i = 0; i < len; i++) {
-        mpz_mul_ui(value, value, SHIFT);
-        mpz_add_ui(value, value, (unsigned char)str[i]);
-    }
+
+void rsa(mpz_t result, mpz_t base, mpz_t exponent, mpz_t modulus) {
+    mpz_init(result);
+    mpz_powm(result, base, exponent, modulus);
 }
-
-void mpz_to_string(mpz_t value, char *str) {
-    size_t len = mpz_sizeinbase(value, SHIFT);
-    unsigned char *buffer = malloc(len);
-
-    mpz_export(buffer, &len, 1, 1, 0, 0, value);
-
-    for (size_t i = 0; i < len; i++) {
-        str[i] = (char)buffer[i];
-    }
-    str[len] = '\0';
-
-    free(buffer);
-}
-
-char * rsa(char *message, mpz_t key, mpz_t module) {
-    mpz_t M, C;
-    mpz_init(M); mpz_init(C);
-    string_to_mpz(message, M);
-    mpz_powm(C, M, key, module);
-
-    char *encrypted_message = malloc(RAND_SIZE * sizeof(char));
-
-    if (encrypted_message == NULL) {
-        #ifdef WIN32
-            fprintf(stderr, "Memory allocation error for encrypted message\n");
-        #else
-            perror("Memory allocation error for encrypted message");
-        #endif
-        exit(EXIT_FAILURE);
-    }
-
-    mpz_to_string(C, encrypted_message);
-
-    mpz_clear(M);
-    mpz_clear(C);
-
-    return encrypted_message;
-}
-
