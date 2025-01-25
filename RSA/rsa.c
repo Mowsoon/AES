@@ -14,6 +14,11 @@ void generate_rsa_key(mpz_t e, mpz_t d, mpz_t n) {
     find_pq(p, q, state);
     calculate_n_phi(p, q, n, phi);
     calculate_d(e, d, phi);
+
+    mpz_clear(p);
+    mpz_clear(q);
+    mpz_clear(phi);
+    gmp_randclear(state);
 }
 
 void init_random(gmp_randstate_t state) {
