@@ -4,6 +4,7 @@ void init_random();
 void generate_random_prime();
 void find_pq();
 void calculate_n_phi();
+void calculate_d();
 
 void generate_rsa_key(mpz_t e, mpz_t d, mpz_t n) {
     mpz_t p, q, phi;
@@ -12,7 +13,7 @@ void generate_rsa_key(mpz_t e, mpz_t d, mpz_t n) {
     init_random(state);
     find_pq(p, q, state);
     calculate_n_phi(p, q, n, phi);
-
+    calculate_d(e, d, phi);
 }
 
 void init_random(gmp_randstate_t state) {
@@ -38,5 +39,17 @@ void calculate_n_phi(mpz_t p, mpz_t q, mpz_t n, mpz_t phi) {
     mpz_sub_ui(phi, q, 1);
     mpz_mul(phi, n, phi);
     mpz_mul(n, p, q);
+}
+
+void calculate_d(mpz_t e, mpz_t d, mpz_t phi)
+{
+    mpz_init(e); mpz_init(d);
+    mpz_set_ui(e, E);
+    if (!(mpz_divisible_p(phi, e))) {
+        mpz_invert(d, e, phi);
+    }
+    else {
+        exit(EXIT_FAILURE);
+    }
 }
 
