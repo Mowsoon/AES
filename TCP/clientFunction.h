@@ -18,4 +18,6 @@
 void init_winsock(void);
 int init_socket(void);
 struct sockaddr_in configure_client_socket(void);
+void connect_client_socket(int socketFd, struct sockaddr_in clientSocket, int socketLength);
+
 #endif

@@ -1,4 +1,4 @@
-#include "clientFunction.h"*
+#include "clientFunction.h"
 
 void handle_error(const char *function_name) {
     #ifdef _WIN32
@@ -34,4 +34,10 @@ struct sockaddr_in configure_client_socket(void) {
         handle_error("inet_pton");
     }
     return client_socket;
+}
+
+void connect_client_socket(int socketFd, struct sockaddr_in clientSocket, int socketLength) {
+    if(connect(socketFd, (struct sockaddr *)&clientSocket, sizeof(clientSocket)) == -1) {
+        handle_error("connect");
+    }
 }
