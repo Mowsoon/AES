@@ -15,3 +15,8 @@ void init_random(gmp_randstate_t state) {
     gmp_randseed_ui(state, seed);
 }
 
+void generate_random_prime(mpz_t prime, gmp_randstate_t state) {
+    mpz_urandomb(prime, state, RAND_SIZE);
+    mpz_nextprime(prime, prime);
+}
+
