@@ -10,6 +10,8 @@ add_executable(client TCP/client.c
         TCP/clientFunction.c
         TCP/clientFunction.h)
 
+add_executable(rsa RSA/rsaMain.c)
+
 if (WIN32)
     target_link_libraries(server ws2_32)
     target_link_libraries(client ws2_32)
