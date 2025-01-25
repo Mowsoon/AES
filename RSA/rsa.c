@@ -93,7 +93,11 @@ char * rsa(char *message, mpz_t key, mpz_t module) {
     char *encrypted_message = malloc(RAND_SIZE * sizeof(char));
 
     if (encrypted_message == NULL) {
-        fprintf(stderr, "Memory allocation error for encrypted message\n");
+        #ifdef WIN32
+            fprintf(stderr, "Memory allocation error for encrypted message\n");
+        #else
+            perror("Memory allocation error for encrypted message");
+        #endif
         exit(EXIT_FAILURE);
     }
 
