@@ -55,8 +55,14 @@ void receiv_bytes(int connectedSocket, char buffer[BUFFER_SIZE]) {
 }
 
 
-void send_bytes(int serverSocket, char buffer[BUFFER_SIZE]) {
+void send_message(int serverSocket, char buffer[BUFFER_SIZE]) {
     if (send(serverSocket, buffer, BUFFER_SIZE, 0) == -1) {
+        handle_error("send");
+    }
+}
+
+void send_bytes(int serverSocket, const uint8_t *buffer, size_t size) {
+    if (send(serverSocket, buffer, size, 0) == -1) {
         handle_error("send");
     }
 }

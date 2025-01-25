@@ -12,7 +12,7 @@ int main() {
     connect_client_socket(socketFd, clientSocket, socketLength);
 
     const char message[] = "Hello Server!";
-    send_bytes(socketFd, message);
+    send_message(socketFd, message);
 
     char buffer[BUFFER_SIZE] = {0};
     receive_bytes(socketFd, buffer);
