@@ -49,3 +49,11 @@ int accept_socket(int socket_fd, struct sockaddr_in serverSocket, int socketLeng
     }
     return accept_fd;
 }
+
+int receiv_bytes(int connectedSocket, char buffer[1024]) {
+    int receivedBytes = recv(connectedSocket, buffer, BUFFER_SIZE, 0);
+    if (receivedBytes == -1) {
+        handle_error("recv");
+    }
+    return receivedBytes;
+}

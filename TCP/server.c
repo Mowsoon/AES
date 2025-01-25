@@ -1,5 +1,7 @@
 #include "serverFunction.h"
 
+
+
 int main() {
     #ifdef _WIN32
         init_winsock();
@@ -15,7 +17,12 @@ int main() {
     }
 
     puts("Waiting for a client connection...");
-    int connectedSocket = accept_socket(socket_fd, serverSocket, socketLength);
+
+    int connectedSocket         = accept_socket(socket_fd, serverSocket, socketLength);
+    char buffer[BUFFER_SIZE]    = {0};
+    int receivedBytes           = receiv_bytes(connectedSocket, buffer);
+
+    printf("Client has send : %s\n", buffer);
 
     #ifdef _WIN32
         closesocket(connectedSocket);
