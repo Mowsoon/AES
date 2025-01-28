@@ -1,7 +1,10 @@
 #include "serverFunction.h"
-#include "../RSA/rsa.h"
 
 int main() {
+    mpz_t e, d, n;
+    generate_rsa_key(e, d, n);
+
+
     #ifdef _WIN32
         init_winsock();
     #endif
@@ -17,14 +20,24 @@ int main() {
 
     puts("Waiting for a client connection...");
 
-    int connectedSocket         = accept_socket(socketFd, serverSocket, socketLength);
-    char buffer[BUFFER_SIZE]    = {0};
+    int connectedSocket = accept_socket(socketFd, serverSocket, socketLength);
 
-    receiv_bytes(connectedSocket, buffer);
-    printf("Client has send : %s\n", buffer);
 
-    const char message[] = "Hello Client!";
-    send_bytes(connectedSocket, message);
+    send_value(connectedSocket, e);
+    send_value(connectedSocket, n);
+
+    mpz_t value;
+    mpz_init(value);
+
+    receive_value(connectedSocket, value);
+    rsa(value, value, d, n);
+
+    gmp_printf("%Zd\n", value);
+
+
+    mpz_clear(e);
+    mpz_clear(d);
+    mpz_clear(n);
 
 
     #ifdef _WIN32

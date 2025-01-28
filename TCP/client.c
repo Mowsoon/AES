@@ -11,13 +11,25 @@ int main() {
     const int socketLength              = sizeof(clientSocket);
     connect_client_socket(socketFd, clientSocket, socketLength);
 
-    const char message[] = "Hello Server!";
-    send_bytes(socketFd, message);
+    mpz_t e, n;
+    mpz_init(e); mpz_init(n);
 
-    char buffer[BUFFER_SIZE] = {0};
-    receive_bytes(socketFd, buffer);
+    receive_value(socketFd, e);
+    receive_value(socketFd, n);
 
-    printf("Server has send : %s\n", buffer);
+
+    mpz_t value;
+    mpz_init(value);
+    mpz_set_ui(value, 42);
+    rsa(value, value,e,n);
+
+    send_value(socketFd, value);
+
+
+
+    mpz_clear(value);
+    mpz_clear(e);
+    mpz_clear(n);
 
     #ifdef _WIN32
         closesocket(socketFd);

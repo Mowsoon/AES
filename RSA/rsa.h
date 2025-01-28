@@ -7,14 +7,13 @@
 #include <time.h>
 #include <string.h>
 
-#define RAND_SIZE 1024
+#define RAND_SIZE 512
 #define E 65537
-#define SHIFT 256
 
 void generate_rsa_key(mpz_t e, mpz_t d, mpz_t n);
-char * rsa(char *message, mpz_t key, mpz_t module);
+void rsa(mpz_t result, mpz_t base, mpz_t exponent, mpz_t modulus);
 
 
 
 
-#endif //RSA_H
+#endif
