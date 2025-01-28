@@ -18,15 +18,14 @@ int main() {
 
     size_t e_size;
     size_t n_size;
-    get_rsa_key_size(socketFd, &e_size, &n_size);
+    receive_rsa_key_size(socketFd, &e_size, &n_size);
 
     uint8_t *e_data = malloc(e_size);
     uint8_t *n_data = malloc(n_size);
     if (!e_data || !n_data) {
-        handle_error("Error allocating memory\n");
+        handle_error("Error allocating memory for rsa keys\n");
     }
 
-    // Réception des données de e et n
     receive_data(socketFd, e_data, e_size);
     receive_data(socketFd, n_data, n_size);
 

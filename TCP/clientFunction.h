@@ -24,7 +24,7 @@ void connect_client_socket(int socketFd, struct sockaddr_in clientSocket, int so
 void send_message(int serverSocket, char buffer[BUFFER_SIZE]);
 size_t receive_data(int socket, void *buffer, size_t size);
 size_t send_data(int socket, const void *data, size_t size);
-void get_rsa_key_size(int socket, size_t *e_size, size_t *n_size);
+void receive_rsa_key_size(int socket, size_t *e_size, size_t *n_size);
 void print_bytes(const char *label, uint8_t *bytes, size_t size);
 
 #endif

@@ -23,7 +23,7 @@ int main() {
 
     puts("Waiting for a client connection...");
 
-    int connectedSocket         = accept_socket(socketFd, serverSocket, socketLength);
+    int connectedSocket = accept_socket(socketFd, serverSocket, socketLength);
     size_t e_size, n_size;
     uint8_t e_bytes[BUFFER_SIZE], n_bytes[BUFFER_SIZE];
 

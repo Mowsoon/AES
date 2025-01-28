@@ -76,7 +76,7 @@ size_t send_data(int socket, const void* data, size_t size) {
     return sent;
 }
 
-void get_rsa_key_size(int socket, size_t *e_size, size_t *n_size) {
+void receive_rsa_key_size(int socket, size_t *e_size, size_t *n_size) {
     int socketFd;
     // Réception des tailles de e et n
     uint32_t e_size_net, n_size_net;
