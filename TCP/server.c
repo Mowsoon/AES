@@ -4,7 +4,6 @@ int main() {
     mpz_t e, d, n;
     generate_rsa_key(e, d, n);
 
-    gmp_printf("e (as mpz_t): %Zd\n", e);
 
     #ifdef _WIN32
         init_winsock();
@@ -24,15 +23,21 @@ int main() {
     int connectedSocket = accept_socket(socketFd, serverSocket, socketLength);
 
 
-    send_message(connectedSocket, e);
-    send_message(connectedSocket, n);
+    send_value(connectedSocket, e);
+    send_value(connectedSocket, n);
 
+    mpz_t value;
+    mpz_init(value);
+
+    receive_value(connectedSocket, value);
+    rsa(value, value, d, n);
+
+    gmp_printf("%Zd\n", value);
 
 
     mpz_clear(e);
     mpz_clear(d);
     mpz_clear(n);
-
 
 
     #ifdef _WIN32

@@ -62,6 +62,5 @@ void calculate_d(mpz_t e, mpz_t d, mpz_t phi)
 
 
 void rsa(mpz_t result, mpz_t base, mpz_t exponent, mpz_t modulus) {
-    mpz_init(result);
     mpz_powm(result, base, exponent, modulus);
 }

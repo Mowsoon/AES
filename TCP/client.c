@@ -14,23 +14,20 @@ int main() {
     mpz_t e, n;
     mpz_init(e); mpz_init(n);
 
-    receive_message(socketFd, e);
-    receive_message(socketFd, n);
-
-    gmp_printf("e (as mpz_t): %Zd\n", e);
+    receive_value(socketFd, e);
+    receive_value(socketFd, n);
 
 
-    mpz_t message, crypted;
-    mpz_init(message);
-    mpz_set_ui(message, 42);
-    rsa(crypted, message,e,n);
-    mpz_clear(message);
+    mpz_t value;
+    mpz_init(value);
+    mpz_set_ui(value, 42);
+    rsa(value, value,e,n);
 
+    send_value(socketFd, value);
 
 
 
-
-    mpz_clear(crypted);
+    mpz_clear(value);
     mpz_clear(e);
     mpz_clear(n);
 

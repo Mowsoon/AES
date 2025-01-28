@@ -67,7 +67,7 @@ void print_bytes(const char *label, uint8_t *bytes, size_t size) {
 }
 
 
-void send_message(int socket, mpz_t data) {
+void send_value(int socket, mpz_t data) {
     size_t data_size;
     uint8_t bytes[BUFFER_SIZE];
 
@@ -79,7 +79,7 @@ void send_message(int socket, mpz_t data) {
     send_data(socket, bytes, data_size);
 }
 
-void receive_message(int socket, mpz_t value) {
+void receive_value(int socket, mpz_t value) {
     uint32_t data_size_net;
     receive_data(socket, &data_size_net, sizeof(data_size_net));
     size_t data_size = ntohl(data_size_net);
