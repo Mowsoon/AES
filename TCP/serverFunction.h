@@ -27,5 +27,6 @@ void receiv_bytes(int connectedSocket, char buffer[1024]);
 size_t send_data(int socket, const void* data, size_t size);
 size_t receive_data(int socket, void *buffer, size_t size);
 void print_bytes(const char *label, uint8_t *bytes, size_t size);
+void send_rsa_key_size(int connectedSocket, size_t e_size, size_t n_size);
 
 #endif
