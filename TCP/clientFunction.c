@@ -19,8 +19,6 @@ void connect_client_socket(int socketFd, struct sockaddr_in clientSocket, int so
 }
 
 void receive_rsa_key_size(int socket, size_t *e_size, size_t *n_size) {
-    int socketFd;
-    // Réception des tailles de e et n
     uint32_t e_size_net, n_size_net;
     receive_data(socket, &e_size_net, sizeof(e_size_net));
     receive_data(socket, &n_size_net, sizeof(n_size_net));
