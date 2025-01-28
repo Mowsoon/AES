@@ -25,5 +25,6 @@ void handle_error(const char *functionName);
 int accept_socket(int socketFd, struct sockaddr_in serverSocket, int socketLength);
 void receiv_bytes(int connectedSocket, char buffer[1024]);
 size_t send_data(int socket, const void* data, size_t size);
+size_t receive_data(int socket, void *buffer, size_t size);
 
 #endif

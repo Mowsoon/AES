@@ -63,3 +63,15 @@ size_t receive_data(int socket, void *buffer, size_t size) {
     }
     return received;
 }
+
+size_t send_data(int socket, const void* data, size_t size) {
+    size_t sent = 0;
+    while (sent < size) {
+        ssize_t bytes = send(socket, (const uint8_t *) data + sent, size - sent, 0);
+        if (bytes == -1) {
+            handle_error("send");
+        }
+        sent += bytes;
+    }
+    return sent;
+}

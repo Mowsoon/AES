@@ -23,5 +23,6 @@ struct sockaddr_in configure_client_socket(void);
 void connect_client_socket(int socketFd, struct sockaddr_in clientSocket, int socketLength);
 void send_message(int serverSocket, char buffer[BUFFER_SIZE]);
 size_t receive_data(int socket, void *buffer, size_t size);
+size_t send_data(int socket, const void *data, size_t size);
 
 #endif
