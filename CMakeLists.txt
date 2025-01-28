@@ -10,12 +10,16 @@ add_executable(server TCP/server.c
         TCP/serverFunction.c
         TCP/serverFunction.h
         RSA/rsa.h
-        RSA/rsa.c)
+        RSA/rsa.c
+        TCP/generalFunction.h
+        TCP/generalFunction.c)
 add_executable(client TCP/client.c
         TCP/clientFunction.c
         TCP/clientFunction.h
         RSA/rsa.h
-        RSA/rsa.c)
+        RSA/rsa.c
+        TCP/generalFunction.h
+        TCP/generalFunction.c)
 
 target_link_libraries(server gmp)
 target_link_libraries(client gmp)

@@ -1,9 +1,6 @@
 #include "serverFunction.h"
 #include "../RSA/rsa.h"
 
-
-
-
 int main() {
     mpz_t e, d, n;
     generate_rsa_key(e, d, n);
