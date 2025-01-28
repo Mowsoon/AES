@@ -11,24 +11,29 @@ int main() {
     const int socketLength              = sizeof(clientSocket);
     connect_client_socket(socketFd, clientSocket, socketLength);
 
-    size_t e_size;
-    size_t n_size;
-    receive_rsa_key_size(socketFd, &e_size, &n_size);
+    mpz_t e, n;
+    mpz_init(e); mpz_init(n);
 
-    uint8_t *e_data = malloc(e_size);
-    uint8_t *n_data = malloc(n_size);
-    if (!e_data || !n_data) {
-        handle_error("Error allocating memory for rsa keys\n");
-    }
+    receive_message(socketFd, e);
+    receive_message(socketFd, n);
 
-    receive_data(socketFd, e_data, e_size);
-    receive_data(socketFd, n_data, n_size);
+    gmp_printf("e (as mpz_t): %Zd\n", e);
 
-    print_bytes("e : ", e_data, e_size);
-    print_bytes("n : ", n_data, n_size);
 
-    free(e_data);
-    free(n_data);
+    mpz_t message, crypted;
+    mpz_init(message);
+    mpz_set_ui(message, 42);
+    rsa(crypted, message,e,n);
+    mpz_clear(message);
+
+
+
+
+
+    mpz_clear(crypted);
+    mpz_clear(e);
+    mpz_clear(n);
+
     #ifdef _WIN32
         closesocket(socketFd);
         WSACleanup();

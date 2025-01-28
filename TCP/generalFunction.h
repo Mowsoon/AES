@@ -1,4 +1,3 @@
-
 #ifndef GENERALFUNCTION_H
 #define GENERALFUNCTION_H
 
@@ -16,7 +15,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
-
+#include "../RSA/rsa.h"
 
 
 void init_winsock(void);
@@ -25,5 +24,7 @@ void handle_error(const char *functionName);
 size_t receive_data(int socket, void *buffer, size_t size);
 size_t send_data(int socket, const void *data, size_t size);
 void print_bytes(const char *label, uint8_t *bytes, size_t size);
+void send_message(int socket, mpz_t data);
+void receive_message(int socket, mpz_t value);
 
 #endif

@@ -16,12 +16,3 @@ void connect_client_socket(int socketFd, struct sockaddr_in clientSocket, int so
         handle_error("connect");
     }
 }
-
-void receive_rsa_key_size(int socket, size_t *e_size, size_t *n_size) {
-    uint32_t e_size_net, n_size_net;
-    receive_data(socket, &e_size_net, sizeof(e_size_net));
-    receive_data(socket, &n_size_net, sizeof(n_size_net));
-
-    *e_size = ntohl(e_size_net);
-    *n_size = ntohl(n_size_net);
-}

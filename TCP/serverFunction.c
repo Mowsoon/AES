@@ -22,11 +22,3 @@ int accept_socket(int socketFd, struct sockaddr_in serverSocket, int socketLengt
     }
     return acceptFd;
 }
-
-void send_rsa_key_size(int connectedSocket, size_t e_size, size_t n_size) {
-    uint32_t e_size_net = htonl((uint32_t)e_size);
-    uint32_t n_size_net = htonl((uint32_t)n_size);
-
-    send_data(connectedSocket, &e_size_net, sizeof(e_size_net));
-    send_data(connectedSocket, &n_size_net, sizeof(n_size_net));
-}

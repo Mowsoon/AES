@@ -65,3 +65,31 @@ void print_bytes(const char *label, uint8_t *bytes, size_t size) {
     }
     printf("\n");
 }
+
+
+void send_message(int socket, mpz_t data) {
+    size_t data_size;
+    uint8_t bytes[BUFFER_SIZE];
+
+    mpz_export(bytes, &data_size, 1, sizeof(uint8_t), 0, 0, data);
+
+    uint32_t data_size_net = htonl((uint32_t)data_size);
+    send_data(socket, &data_size_net, sizeof(data_size_net));
+
+    send_data(socket, bytes, data_size);
+}
+
+void receive_message(int socket, mpz_t value) {
+    uint32_t data_size_net;
+    receive_data(socket, &data_size_net, sizeof(data_size_net));
+    size_t data_size = ntohl(data_size_net);
+
+    uint8_t *data = malloc(data_size);
+    if (data == NULL) {
+        handle_error("malloc");
+    }
+
+    receive_data(socket, data, data_size);
+    mpz_import(value, data_size, 1, sizeof(uint8_t), 0, 0, data);
+    free(data);
+}
