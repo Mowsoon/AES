@@ -50,19 +50,19 @@ int accept_socket(int socketFd, struct sockaddr_in serverSocket, int socketLengt
 
 void receiv_bytes(int connectedSocket, char buffer[BUFFER_SIZE]) {
     if (recv(connectedSocket, buffer, BUFFER_SIZE, 0) == -1) {
-        handle_error("recv");
+        handle_error("recv_bytes");
     }
 }
 
 
-void send_message(int serverSocket, char buffer[BUFFER_SIZE]) {
-    if (send(serverSocket, buffer, BUFFER_SIZE, 0) == -1) {
-        handle_error("send");
+size_t send_data(int socket, const void* data, size_t size) {
+    size_t sent = 0;
+    while (sent < size) {
+        ssize_t bytes = send(socket, (const uint8_t *) data + sent, size - sent, 0);
+        if (bytes == -1) {
+            handle_error("send");
+        }
+        sent += bytes;
     }
-}
-
-void send_bytes(int serverSocket, const uint8_t *buffer, size_t size) {
-    if (send(serverSocket, buffer, size, 0) == -1) {
-        handle_error("send");
-    }
+    return sent;
 }

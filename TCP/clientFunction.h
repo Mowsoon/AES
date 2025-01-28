@@ -15,12 +15,13 @@
 #endif
 
 #include <stdio.h>
+#include <stdint.h>
 
 void init_winsock(void);
 int init_socket(void);
 struct sockaddr_in configure_client_socket(void);
 void connect_client_socket(int socketFd, struct sockaddr_in clientSocket, int socketLength);
 void send_message(int serverSocket, char buffer[BUFFER_SIZE]);
-void receive_bytes(int connectedSocket, char buffer[BUFFER_SIZE]);
+size_t receive_data(int socket, void *buffer, size_t size);
 
 #endif

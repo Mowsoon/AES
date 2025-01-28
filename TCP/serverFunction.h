@@ -16,6 +16,7 @@
 #include <stdio.h>
 #include <stdint.h>
 
+
 void init_winsock(void);
 int init_socket(void);
 struct sockaddr_in configure_server_socket(void);
@@ -23,7 +24,6 @@ void bind_socket(int socketFd, struct sockaddr_in serverSocket, int socketLength
 void handle_error(const char *functionName);
 int accept_socket(int socketFd, struct sockaddr_in serverSocket, int socketLength);
 void receiv_bytes(int connectedSocket, char buffer[1024]);
-void send_message(int serverSocket, char buffer[1024]);
-void send_bytes(int serverSocket, const uint8_t *buffer, size_t size);
+size_t send_data(int socket, const void* data, size_t size);
 
 #endif

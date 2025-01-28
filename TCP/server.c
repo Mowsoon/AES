@@ -1,10 +1,18 @@
 #include "serverFunction.h"
 #include "../RSA/rsa.h"
 
+void print_bytes(const char *label, uint8_t *bytes, size_t size) {
+    printf("%s (size: %zu): ", label, size);
+    for (size_t i = 0; i < size; i++) {
+        printf("%02X ", bytes[i]);
+    }
+    printf("\n");
+}
+
+
 int main() {
     mpz_t e, d, n;
     generate_rsa_key(e, d, n);
-    gmp_printf("Public key :\n  -> %Zd\n    -> %Zd\n", e, n);
 
     #ifdef _WIN32
         init_winsock();
@@ -28,8 +36,19 @@ int main() {
     mpz_export(e_bytes, &e_size, 1, sizeof(uint8_t), 0, 0, e);
     mpz_export(n_bytes, &n_size, 1, sizeof(uint8_t), 0, 0, n);
 
-    send_bytes(connectedSocket, e_bytes, e_size);
-    send_bytes(connectedSocket, n_bytes, n_size);
+
+    print_bytes("E value :", e_bytes, e_size);
+    print_bytes("N value :", n_bytes, n_size);
+
+    uint32_t e_size_net = htonl((uint32_t)e_size);
+    uint32_t n_size_net = htonl((uint32_t)n_size);
+
+    send_data(connectedSocket, &e_size_net, sizeof(e_size_net));
+    send_data(connectedSocket, &n_size_net, sizeof(n_size_net));
+
+    send_data(connectedSocket, e_bytes, e_size);
+    send_data(connectedSocket, n_bytes, n_size);
+
 
     mpz_clear(e);
     mpz_clear(d);

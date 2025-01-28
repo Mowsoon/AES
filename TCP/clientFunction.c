@@ -48,8 +48,18 @@ void send_message(int serverSocket, char buffer[BUFFER_SIZE]) {
     }
 }
 
-void receive_bytes(int serverSocket, char buffer[BUFFER_SIZE]) {
-    if (recv(serverSocket, buffer, BUFFER_SIZE, 0) == -1) {
-        handle_error("recv");
+size_t receive_data(int socket, void *buffer, size_t size) {
+    size_t received = 0;
+    while (received < size) {
+        ssize_t bytes = recv(socket, (uint8_t *)buffer + received, size - received, 0);
+        if (bytes == -1) {
+            perror("recv");
+            exit(EXIT_FAILURE);
+        } else if (bytes == 0) {
+            fprintf(stderr, "Connection closed by the server.\n");
+            exit(EXIT_FAILURE);
+        }
+        received += bytes;
     }
+    return received;
 }
