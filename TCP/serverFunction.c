@@ -1,5 +1,4 @@
 #include "serverFunction.h"
-#include "generalFunction.h"
 
 struct sockaddr_in configure_server_socket(void) {
     struct sockaddr_in serverSocket = {0};

@@ -1,5 +1,4 @@
 #include "clientFunction.h"
-#include "generalFunction.h"
 
 struct sockaddr_in configure_client_socket(void) {
     struct sockaddr_in client_socket;
