@@ -76,3 +76,11 @@ size_t send_data(int socket, const void* data, size_t size) {
     }
     return sent;
 }
+
+void print_bytes(const char *label, uint8_t *bytes, size_t size) {
+    printf("%s (size: %zu): ", label, size);
+    for (size_t i = 0; i < size; i++) {
+        printf("%02X ", bytes[i]);
+    }
+    printf("\n");
+}

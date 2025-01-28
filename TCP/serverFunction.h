@@ -26,5 +26,6 @@ int accept_socket(int socketFd, struct sockaddr_in serverSocket, int socketLengt
 void receiv_bytes(int connectedSocket, char buffer[1024]);
 size_t send_data(int socket, const void* data, size_t size);
 size_t receive_data(int socket, void *buffer, size_t size);
+void print_bytes(const char *label, uint8_t *bytes, size_t size);
 
 #endif

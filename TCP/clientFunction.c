@@ -75,3 +75,22 @@ size_t send_data(int socket, const void* data, size_t size) {
     }
     return sent;
 }
+
+void get_rsa_key_size(int socket, size_t *e_size, size_t *n_size) {
+    int socketFd;
+    // Réception des tailles de e et n
+    uint32_t e_size_net, n_size_net;
+    receive_data(socket, &e_size_net, sizeof(e_size_net));
+    receive_data(socket, &n_size_net, sizeof(n_size_net));
+
+    *e_size = ntohl(e_size_net);
+    *n_size = ntohl(n_size_net);
+}
+
+void print_bytes(const char *label, uint8_t *bytes, size_t size) {
+    printf("%s (size: %zu): ", label, size);
+    for (size_t i = 0; i < size; i++) {
+        printf("%02X ", bytes[i]);
+    }
+    printf("\n");
+}
